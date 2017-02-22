@@ -1,0 +1,38 @@
+<!--<h1>My Tasks</h1>-->
+<!--<p *ngFor="let task of tasks">-->
+  <!--<label>Date: </label>{{task.date}}<br>-->
+  <!--<label>Title: </label>{{task.title}}<br>-->
+  <!--<label>Description: </label>{{task.description}}<br>-->
+  <!--<label>Priority: </label>{{task.priority}}<br>-->
+  <!--<label>_Id: </label>{{task._id}}<br>-->
+  <!--<input type="button"  value="Edit" class="btn btn-primary" (click)="editTask(index)">-->
+  <!--<input type="button" value="Done" class="btn btn-primary" (click)="deleteByIndex(index)">-->
+<!--</p>-->
+
+<div class="container">
+  <table class="table table-hover">
+    <thead>
+    <tr style="background-color: dodgerblue">
+      <th>Date</th>
+      <th>Title</th>
+      <th>Description</th>
+      <th>Priority</th>
+      <th>TaskId</th>
+      <th>Edit / Remove</th>
+
+
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let task of tasks;let index = index">
+      <td>{{task.date}}</td>
+      <td>{{task.title}}</td>
+      <td>{{task.description}}</td>
+      <td>{{task.priority}}</td>
+      <td>{{task._id}}</td>
+      <td><input type="button" value="Edit"  class="btn btn-success btn btn-primary btn-sm" (click)="edit(index)"></td>
+      <td><input type="button" value="Done" class="btn btn-success btn btn-primary btn-sm" (click)="deleteByIndex(index)"></td>
+    </tr>
+    </tbody>
+  </table>
+</div>
