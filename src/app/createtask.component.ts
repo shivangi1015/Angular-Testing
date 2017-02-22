@@ -4,7 +4,6 @@ import {Task} from "./task";
 import {ActivatedRoute, Router} from "@angular/router";
 
 
-
 @Component({
   moduleId: module.id,
   selector: 'create',
@@ -14,8 +13,8 @@ import {ActivatedRoute, Router} from "@angular/router";
 })
 export class CreateTaskComponent implements OnInit {
 
-  index: String;
-  tasks:Task[]=[]
+  index: number;
+
   task: Task = new Task('', '', '', '', '');
 
   constructor(private service: TaskService,
@@ -24,29 +23,29 @@ export class CreateTaskComponent implements OnInit {
 
   ngOnInit() {
     this.route.params.subscribe((data: any) => {
-      this.index = data.i;
-      if (this.index) {
+      this.index = +data.indexSent;
+      if (this.index || this.index === 0) {
 
         this.service.getData().subscribe((data: any) => {
-            this.task = data
-            this.task = this.tasks.filter(x=>x._id==this.index)[0];
+            this.task = data[this.index]
+
           },
           (err: any) => alert(err), () => {
-            alert('Error')
+            alert('Success')
           });
       }
     });
   }
 
   submit() {
-    if (this.index) {
+    if (this.index || this.index === 0) {
 
-      this.service.updateTask(this.task).subscribe()
+      this.service.updateTask(this.task).subscribe()//(data: any) => alert(JSON.stringify(data)))
     } else {
-      this.service.addTask(this.task).subscribe()
+      this.service.addTask(this.task).subscribe()//(data: any) => alert(JSON.stringify(data)))
     }
 
     this.router.navigate(['show']);
-
+    alert("Task is created");
   }
 }
