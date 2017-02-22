@@ -21,7 +21,7 @@ export class ShowTaskComponent implements OnInit {
   ngOnInit() {
     this.service.getData().subscribe((data: any) => {
         this.tasks = data
-        alert(JSON.stringify(data))
+      
       },
       (err: any) => alert(err), () => {
 
