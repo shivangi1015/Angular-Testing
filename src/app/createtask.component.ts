@@ -13,7 +13,8 @@ import {ActivatedRoute, Router} from "@angular/router";
 })
 export class CreateTaskComponent implements OnInit {
 
-  index: number;
+  index: string;
+  newTask:Task[];
 
   task: Task = new Task('', '', '', '', '');
 
@@ -23,29 +24,50 @@ export class CreateTaskComponent implements OnInit {
 
   ngOnInit() {
     this.route.params.subscribe((data: any) => {
-      this.index = +data.indexSent;
-      if (this.index || this.index === 0) {
-
-        this.service.getData().subscribe((data: any) => {
-            this.task = data[this.index]
-
+      this.index = data.indexSent;
+      if (this.index) {
+        this.service.getData().subscribe(data => {
+            this.newTask = data;
+            this.task = this.newTask.filter((task: Task) => task._id === this.index)[0]
           },
           (err: any) => alert(err), () => {
-            alert('Success')
+            console.log("Success");
           });
       }
+
     });
   }
 
   submit() {
-    if (this.index || this.index === 0) {
+    // if (this.index) {
+    //   this.service.updateTask(this.task).subscribe((data:any)=>alert(JSON.stringify(data)));
+    // } else {
+    //   this.service.addTask(this.task).subscribe((data:any)=>alert(JSON.stringify(data)))
+    //   this.router.navigate(['show']);
+    // }
 
-      this.service.updateTask(this.task).subscribe()//(data: any) => alert(JSON.stringify(data)))
+    if (this.index) {
+      //this.service.update(this.index, this.task);
+      // this.service.remove(this.task._id).subscribe((data: any) => alert(JSON.stringify(data)));
+      this.service.updateTask(this.task).subscribe((data: any) => {
+        alert('Task Updated')
+        this.router.navigate(['show']);
+      }, err => {
+        console.error(err);
+      })
     } else {
-      this.service.addTask(this.task).subscribe()//(data: any) => alert(JSON.stringify(data)))
+      //this.service.add(this.task);
+      this.service.addTask(this.task).subscribe((data: any) => {
+        alert('Task Added')
+        this.router.navigate(['show']);
+      }, err => {
+        console.error(err);
+      })
     }
 
-    this.router.navigate(['show']);
-    alert("Task is created");
   }
-}
+
+
+
+  }
+

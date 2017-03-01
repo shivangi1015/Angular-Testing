@@ -21,7 +21,7 @@ export class ShowTaskComponent implements OnInit {
   ngOnInit() {
     this.service.getData().subscribe((data: any) => {
         this.tasks = data
-      
+
       },
       (err: any) => alert(err), () => {
 
@@ -44,6 +44,6 @@ export class ShowTaskComponent implements OnInit {
   edit(i:number){
      alert("Attempt to edit index: "+i)
 
-    this.router.navigate(['edit',this.tasks[i]._id])
+    this.router.navigate(['create',this.tasks[i]._id])
   }
 }

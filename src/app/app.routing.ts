@@ -14,9 +14,6 @@ export const routes: Routes = [ {
   component: CreateTaskComponent
 },
   {
-    path : 'create/:index',
-    component: CreateTaskComponent
-  },{
-    path : 'edit/:i',
+    path : 'create/:indexSent',
     component: CreateTaskComponent
   }];
